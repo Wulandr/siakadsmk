@@ -32,13 +32,12 @@
                 <!-- breadcrumb -->
                 <div class="breadcrumb-header justify-content-between">
                     <div class="left-content">
-                        <span class="main-content-title mg-b-0 mg-b-lg-1">Add New Page</span>
+                        <span class="main-content-title mg-b-0 mg-b-lg-1">Edit Page</span>
                     </div>
                     <div class="justify-content-center mt-2">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">MURID</a></li>
-                            {{-- <li class="breadcrumb-item active" aria-current="page">Unit</li> --}}
-                            <li class="breadcrumb-item active" aria-current="page">Add New</li>
+                            <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">MAPEL</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
                         </ol>
                     </div>
                 </div>
@@ -50,39 +49,17 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="main-content-label mg-b-5">
-                                    <h5 class="card-title mg-b-20">Create Murid</h5>
+                                    <h5 class="card-title mg-b-20">Edit Mapel</h5>
                                 </div>
-                                <form action="{{ url('/murid/addNew/create') }}" id="formData" method="POST"
-                                    enctype="multipart/form-data" class="needs-validation" novalidate>
+                                <form action="{{ url('/mapel/edit/process/' . base64_encode($id)) }}" id="formData"
+                                    method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="form-group">
-                                        <label>NIS</label>
-                                        <input class="form-control" type="text" name="nis" required>
-                                    </div>
 
+                                    <!-- Nama Kelas -->
                                     <div class="form-group">
-                                        <label>Nama Murid</label>
-                                        <input class="form-control" type="text" name="nama" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Kelas</label>
-                                        <select class="form-control" name="id_kelas" required>
-                                            <option value="">-- Pilih Kelas --</option>
-                                            @foreach ($kelas as $k)
-                                                <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Tahun Ajaran</label>
-                                        <select class="form-control" name="id_th_ajaran" required>
-                                            <option value="">-- Pilih Tahun Ajaran --</option>
-                                            @foreach ($tahunAjaran as $t)
-                                                <option value="{{ $t->id }}">{{ $t->kode }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label>Mata Pelajaran</label>
+                                        <input class="form-control" type="text" name="mapel"
+                                            value="{{ $mapel->mapel }}" required>
                                     </div>
 
                                     <?php date_default_timezone_set('Asia/Jakarta'); ?>
@@ -92,8 +69,10 @@
                                         value="<?= date('Y-m-d') ?>">
 
                                     <div class="d-flex justify-content-end">
-                                        <button class="btn btn-primary" type="submit">Add</button>
+                                        <button class="btn btn-primary" type="submit">Update</button>
                                     </div>
+
+
                                 </form>
                             </div>
                         </div>
@@ -118,6 +97,37 @@
     {{-- script --}}
     @include('layouts.script')
     {{-- /script --}}
+    <script>
+        $(document).ready(function() {
+            $('#deskripsi').summernote();
+        });
+    </script>
+    <!-- <script type="text/javascript">
+        $(function() {
+            $('#fotounit').FancyFileUpload({
+                params: {
+                    files: $('#formData').find('input[name="files[]"]').first().val(),
+                    action: 'fileuploader'
+                },
+                edit: false,
+                maxfilesize: 1000000,
+            });
+        });
+    </script> -->
+
+    <!-- multiple image -->
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".btn-success").click(function() {
+                var html = $(".clone").html();
+                $(".increment").after(html);
+            });
+            $("body").on("click", ".btn-danger", function() {
+                $(this).parents(".control-group").remove();
+            });
+        });
+    </script>
 </body>
 
 </html>

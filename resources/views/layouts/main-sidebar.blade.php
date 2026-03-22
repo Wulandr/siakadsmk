@@ -34,7 +34,7 @@
                         <li class="side-item side-item-category">Admin</li>
                     @endif
                     @if (Gate::check('menu_beranda') || Gate::check('beranda_show'))
-                        <li class="slide">
+                        {{-- <li class="slide">
                             <a class="side-menu__item 
                         {{ Request::is(
                             'beranda',
@@ -55,7 +55,7 @@
                                     <path d="M14 6h2v2h-2zm3 0h2v2h-2z"></path>
                                 </svg>
                                 <span class="side-menu__label">Halaman Beranda</span></a>
-                        </li>
+                        </li> --}}
                     @endif
                     @if (Gate::check('menu_user') || Gate::check('user_show'))
                         <li class="slide">
@@ -111,9 +111,37 @@
                         </li>
                     @endif
 
+
+                    <li class="slide">
+                        <a class="side-menu__item" href="{{ url('/thajaran') }}">
+                            <svg class="side-menu__icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24">
+                                <path
+                                    d="M19 2H9c-1.103 0-2 .897-2 2v6H5c-1.103 0-2 .897-2 2v9a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4c0-1.103-.897-2-2-2zM5 12h6v8H5v-8zm14 8h-6v-8c0-1.103-.897-2-2-2H9V4h10v16z">
+                                </path>
+                                <path d="M11 6h2v2h-2zm4 0h2v2h-2zm0 4.031h2V12h-2zM15 14h2v2h-2zm-8 .001h2v2H7z">
+                                </path>
+                            </svg>
+                            <span class="side-menu__label">Tahun Ajaran</span>
+                        </a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" href="{{ url('/kelas') }}">
+                            <svg class="side-menu__icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24">
+                                <path
+                                    d="M19 2H9c-1.103 0-2 .897-2 2v6H5c-1.103 0-2 .897-2 2v9a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4c0-1.103-.897-2-2-2zM5 12h6v8H5v-8zm14 8h-6v-8c0-1.103-.897-2-2-2H9V4h10v16z">
+                                </path>
+                                <path d="M11 6h2v2h-2zm4 0h2v2h-2zm0 4.031h2V12h-2zM15 14h2v2h-2zm-8 .001h2v2H7z">
+                                </path>
+                            </svg>
+                            <span class="side-menu__label">Kelas</span>
+                        </a>
+                    </li>
+
                     {{-- Menu Guru --}}
                     @if (Gate::check('guru_show'))
-                        <li class="side-item side-item-category">Guru</li>
+                        <li class="side-item side-item-category">DATA</li>
                     @endif
                     <li class="slide">
                         <a class="side-menu__item" href="{{ url('/guru') }}">
@@ -144,7 +172,7 @@
                     </li>
 
                     <li class="slide">
-                        <a class="side-menu__item" href="{{ url('/kelas') }}">
+                        <a class="side-menu__item" href="{{ url('/mapel') }}">
                             <svg class="side-menu__icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24">
                                 <path
@@ -153,10 +181,45 @@
                                 <path d="M11 6h2v2h-2zm4 0h2v2h-2zm0 4.031h2V12h-2zM15 14h2v2h-2zm-8 .001h2v2H7z">
                                 </path>
                             </svg>
-                            <span class="side-menu__label">Kelas</span>
+                            <span class="side-menu__label">Mapel</span>
                         </a>
                     </li>
 
+                    {{-- Menu Guru bk --}}
+                    @if (Gate::check('guru_show') || Gate::check('absensi_show'))
+                        <li class="side-item side-item-category">Guru BK</li>
+                    @endif
+                    <li class="slide">
+                        <a class="side-menu__item" href="{{ url('/absensi') }}">
+                            <svg class="side-menu__icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24">
+                                <path
+                                    d="M19 2H9c-1.103 0-2 .897-2 2v6H5c-1.103 0-2 .897-2 2v9a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4c0-1.103-.897-2-2-2zM5 12h6v8H5v-8zm14 8h-6v-8c0-1.103-.897-2-2-2H9V4h10v16z">
+                                </path>
+                                <path d="M11 6h2v2h-2zm4 0h2v2h-2zm0 4.031h2V12h-2zM15 14h2v2h-2zm-8 .001h2v2H7z">
+                                </path>
+                            </svg>
+                            <span class="side-menu__label">Absensi Murid</span>
+                        </a>
+                    </li>
+
+                    {{-- Menu Wali kelas --}}
+                    @if (Gate::check('rapor'))
+                        <li class="side-item side-item-category">Wali Kelas</li>
+                    @endif
+                    <li class="slide">
+                        <a class="side-menu__item" href="{{ url('/nilai') }}">
+                            <svg class="side-menu__icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24">
+                                <path
+                                    d="M19 2H9c-1.103 0-2 .897-2 2v6H5c-1.103 0-2 .897-2 2v9a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4c0-1.103-.897-2-2-2zM5 12h6v8H5v-8zm14 8h-6v-8c0-1.103-.897-2-2-2H9V4h10v16z">
+                                </path>
+                                <path d="M11 6h2v2h-2zm4 0h2v2h-2zm0 4.031h2V12h-2zM15 14h2v2h-2zm-8 .001h2v2H7z">
+                                </path>
+                            </svg>
+                            <span class="side-menu__label">Nilai Murid</span>
+                        </a>
+                    </li>
 
                 </ul>
             @endif

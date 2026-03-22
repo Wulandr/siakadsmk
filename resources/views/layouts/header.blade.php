@@ -38,15 +38,6 @@
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
-    <style>
-        #mapid {
-            min-height: 500px;
-        }
-
-        #edit_mapid {
-            min-height: 500px;
-        }
-    </style>
     <!-- Leaflet JavaScript -->
 
     <!-- Leaflet CSS -->
@@ -59,12 +50,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
 
-    <style>
-        #mapid {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
 
     <!-- Lalu JS Leaflet -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

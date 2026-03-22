@@ -157,15 +157,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     //nilai
     Route::get('/nilai', [NilaiController::class, 'index']);
-    Route::get('/nilai/addNew', [NilaiController::class, 'AddNew']);
-    Route::post('/nilai/addNew/create', [NilaiController::class, 'create']);
-    Route::get('/nilai/edit/{id}', [NilaiController::class, 'Edit']);
-    Route::post('/nilai/edit/process/{id}', [NilaiController::class, 'UpdateProcess']);
+    Route::get('/nilai/kelas/{id}', [NilaiController::class, 'kelas']);
+    Route::get('/nilai/murid/{id}', [NilaiController::class, 'murid']);
+    Route::post('/nilai/create', [NilaiController::class, 'create']);
+    Route::post('/nilai/edit', [NilaiController::class, 'UpdateProcess']);
     Route::get('/nilai/delete/{id}', [NilaiController::class, 'delete']);
-
+    Route::post('/nilai/generate-rapor', [NilaiController::class, 'generateRapor']);
+    Route::get('/nilai/rapor/{id}', [NilaiController::class, 'rapor']);
 
     //absensi
     Route::get('/absensi', [AbsensiController::class, 'index']);
+    Route::get('/absensi/filter', [AbsensiController::class, 'filter']);
     Route::get('/absensi/addNew', [AbsensiController::class, 'AddNew']);
     Route::post('/absensi/addNew/create', [AbsensiController::class, 'create']);
     Route::get('/absensi/edit/{id}', [AbsensiController::class, 'Edit']);

@@ -16,7 +16,7 @@ class CreateThAjaranTable extends Migration
         Schema::create('th_ajaran', function (Blueprint $table) {
             $table->id();
             $table->string('kode')->unique(); // contoh: 2526A
-            $table->string('thn_ajaran');     // contoh: 2025/2026
+            $table->string('th_ajaran');     // contoh: 2025/2026
             $table->enum('semester', ['1', '2']);
             $table->boolean('is_active')->default(false);
 

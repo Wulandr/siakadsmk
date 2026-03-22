@@ -13,7 +13,7 @@ class ThAjaranSeeder extends Seeder
         DB::table('th_ajaran')->insert([
             [
                 'kode' => '2024A',
-                'thn_ajaran' => '2024/2025',
+                'th_ajaran' => '2024/2025',
                 'semester' => '1',
                 'is_active' => 0,
                 'created_at' => Carbon::now(),
@@ -21,7 +21,7 @@ class ThAjaranSeeder extends Seeder
             ],
             [
                 'kode' => '2024B',
-                'thn_ajaran' => '2024/2025',
+                'th_ajaran' => '2024/2025',
                 'semester' => '2',
                 'is_active' => 1, // aktif sekarang
                 'created_at' => Carbon::now(),
@@ -29,7 +29,7 @@ class ThAjaranSeeder extends Seeder
             ],
             [
                 'kode' => '2025A',
-                'thn_ajaran' => '2025/2026',
+                'th_ajaran' => '2025/2026',
                 'semester' => '1',
                 'is_active' => 0,
                 'created_at' => Carbon::now(),
@@ -37,7 +37,7 @@ class ThAjaranSeeder extends Seeder
             ],
             [
                 'kode' => '2025B',
-                'thn_ajaran' => '2025/2026',
+                'th_ajaran' => '2025/2026',
                 'semester' => '2',
                 'is_active' => 0,
                 'created_at' => Carbon::now(),
@@ -45,7 +45,7 @@ class ThAjaranSeeder extends Seeder
             ],
             [
                 'kode' => '2026A',
-                'thn_ajaran' => '2026/2027',
+                'th_ajaran' => '2026/2027',
                 'semester' => '1',
                 'is_active' => 0,
                 'created_at' => Carbon::now(),

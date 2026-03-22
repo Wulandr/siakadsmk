@@ -36,8 +36,7 @@
                     </div>
                     <div class="justify-content-center mt-2">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">MURID</a></li>
-                            {{-- <li class="breadcrumb-item active" aria-current="page">Unit</li> --}}
+                            <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">KELAS</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Add New</li>
                         </ol>
                     </div>
@@ -50,37 +49,21 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="main-content-label mg-b-5">
-                                    <h5 class="card-title mg-b-20">Create Murid</h5>
+                                    <h5 class="card-title mg-b-20">Create Kelas</h5>
                                 </div>
-                                <form action="{{ url('/murid/addNew/create') }}" id="formData" method="POST"
+                                <form action="{{ url('/kelas/addNew/create') }}" id="formData" method="POST"
                                     enctype="multipart/form-data" class="needs-validation" novalidate>
                                     @csrf
                                     <div class="form-group">
-                                        <label>NIS</label>
-                                        <input class="form-control" type="text" name="nis" required>
+                                        <label>Nama Kelas</label>
+                                        <input class="form-control" type="text" name="nama_kelas" required>
                                     </div>
-
                                     <div class="form-group">
-                                        <label>Nama Murid</label>
-                                        <input class="form-control" type="text" name="nama" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Kelas</label>
-                                        <select class="form-control" name="id_kelas" required>
-                                            <option value="">-- Pilih Kelas --</option>
-                                            @foreach ($kelas as $k)
-                                                <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Tahun Ajaran</label>
-                                        <select class="form-control" name="id_th_ajaran" required>
-                                            <option value="">-- Pilih Tahun Ajaran --</option>
-                                            @foreach ($tahunAjaran as $t)
-                                                <option value="{{ $t->id }}">{{ $t->kode }}</option>
+                                        <label>Wali Kelas</label>
+                                        <select class="form-control" name="wali_kelas" required>
+                                            <option value="">-- Pilih Wali Kelas --</option>
+                                            @foreach ($walikelas as $w)
+                                                <option value="{{ $w->id }}">{{ $w->nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
