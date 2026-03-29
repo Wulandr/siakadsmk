@@ -86,6 +86,7 @@
                                         <thead>
                                             <tr class="text-center">
                                                 <th width="5%">No</th>
+                                                <th>NIS</th>
                                                 <th>Nama murid</th>
                                                 <th>Kelas</th>
                                                 <th>Tahun Ajaran</th>

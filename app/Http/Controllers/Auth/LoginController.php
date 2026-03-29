@@ -62,11 +62,6 @@ class LoginController extends Controller
         ]);
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
-            // DB::table('users')->where('id', auth()->user()->id)->update(
-            //     [
-            //         'role' => $request->role
-            //     ]
-            // );
             $cekAktif =  DB::table('users')->where('email', $input['email'])->first();
             if ($cekAktif->is_aktif == 1) { //akun sudah diaktifkan admin
                 return redirect('/dashboard');
@@ -79,39 +74,4 @@ class LoginController extends Controller
             return redirect()->route('login');
         }
     }
-
-    public function gantiRole(Request $request)
-    {
-        $input = $request->all();
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-
-        if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
-            DB::table('users')->where('id', auth()->user()->id)->update(
-                [
-                    'role' => $request->pilihrole
-                ]
-            );
-
-            if (auth()->user()->role == 1) {
-                return redirect()->route(
-                    'dashboard',
-                );
-            } elseif (auth()->user()->role != 1) { //selain admin
-                return redirect()->route(
-                    'dashboard',
-                );
-            }
-        } else {
-            session()->flash('error', 'Alamat Email atau Password Anda salah!.');
-            return redirect()->route('login');
-        }
-    }
-
-    // public function chooseRole()
-    // {
-    //     return route('pilih_role');
-    // }
 }

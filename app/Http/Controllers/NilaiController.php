@@ -113,7 +113,7 @@ class NilaiController extends Controller
 
     public function generateRapor(Request $request)
     {
-        // 🔥 ROLE SYSTEM
+        // ROLE SYSTEM
         $rolenm = DB::table('roles')->where('id', Auth()->user()->role)->first();
         $assignrole = $rolenm->name;
         $user = Usernya::where('id', Auth()->user()->id)->first()->syncRoles($assignrole);
@@ -136,39 +136,25 @@ class NilaiController extends Controller
 
             if (!$mapelId) continue;
 
-            $tugas = $items->where('jenis_nilai', 'tugas')->avg('nilai') ?? 0;
-            $uts   = $items->where('jenis_nilai', 'uts')->avg('nilai') ?? 0;
-            $uas   = $items->where('jenis_nilai', 'uas')->avg('nilai') ?? 0;
+            // RATA-RATA
+            $harian = $items->where('jenis_nilai', 'tugas')->avg('nilai') ?? 0;
+            $uts    = $items->where('jenis_nilai', 'uts')->avg('nilai') ?? 0;
+            $uas    = $items->where('jenis_nilai', 'uas')->avg('nilai') ?? 0;
 
-            // 🔥 HITUNG DINAMIS
-            $total = 0;
-            $count = 0;
+            // HITUNG NILAI AKHIR (BOBOT)
+            $nilaiAkhir = ($harian * 0.5) + ($uts * 0.2) + ($uas * 0.3);
 
-            if ($tugas > 0) {
-                $total += $tugas;
-                $count++;
-            }
+            // KKM
+            $kkm = 78;
 
-            if ($uts > 0) {
-                $total += $uts;
-                $count++;
-            }
-
-            if ($uas > 0) {
-                $total += $uas;
-                $count++;
-            }
-
-            $nilaiAkhir = $count > 0 ? $total / $count : 0;
-
-            // 🔥 PREDIKAT DINAMIS
+            // PREDIKAT BERDASARKAN KKM
             if ($nilaiAkhir >= 90) {
                 $predikat = 'A';
                 $deskripsi = 'Sangat Baik';
-            } elseif ($nilaiAkhir >= 80) {
+            } elseif ($nilaiAkhir >= 85) {
                 $predikat = 'B';
                 $deskripsi = 'Baik';
-            } elseif ($nilaiAkhir >= 70) {
+            } elseif ($nilaiAkhir >= $kkm) {
                 $predikat = 'C';
                 $deskripsi = 'Cukup';
             } else {

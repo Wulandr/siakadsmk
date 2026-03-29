@@ -30,9 +30,18 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
     <style>
-        #mapid {
-            min-height: 500px;
-            min-width: 300px;
+        .nama-murid {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            /* max 2 baris */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        .card-body {
+            min-height: 110px;
         }
     </style>
 </head>

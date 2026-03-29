@@ -3,7 +3,7 @@
 {{-- /header --}}
 
 @section('title')
-{{ trans('roles.title.index') }}
+    {{ trans('roles.title.index') }}
 @endsection
 
 <body class="ltr main-body app sidebar-mini">
@@ -43,40 +43,54 @@
                                             DATA ROLE
                                         </h4>
                                         @can('role_create')
-                                        <a href="{{ url('/roles_create') }}">
-                                            <button type="button" class="btn btn-primary me-1"><i class="fe fe-plus"></i>
-                                                Tambah Baru
-                                            </button>
-                                        </a>
+                                            <a href="{{ url('/roles_create') }}">
+                                                <button type="button" class="btn btn-primary me-1"><i
+                                                        class="fe fe-plus"></i>
+                                                    Tambah Baru
+                                                </button>
+                                            </a>
                                         @endcan
                                     </div>
                                 </div>
                                 <div class="card-body pt-0 example1-table">
                                     @if (session('success'))
-                                    <script>
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: "{{ session('success') }}",
-                                            showConfirmButton: false,
-                                            timer: 1500
-                                        })
-                                    </script>
+                                        <script>
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: "{{ session('success') }}",
+                                                showConfirmButton: false,
+                                                timer: 1500
+                                            })
+                                        </script>
                                     @endif
 
                                     <div class="table-responsive">
-                                        <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                        <div id="basic-datatable_wrapper"
+                                            class="dataTables_wrapper dt-bootstrap5 no-footer">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <table class="table table-bordered text-nowrap border-bottom dataTable no-footer" id="responsive-datatable" role="grid" aria-describedby="basic-datatable_info">
+                                                    <table
+                                                        class="table table-bordered text-nowrap border-bottom dataTable no-footer"
+                                                        id="responsive-datatable" role="grid"
+                                                        aria-describedby="basic-datatable_info">
                                                         <thead class="text-center">
                                                             <tr>
-                                                                <th class="wd-5p sorting sorting_asc" tabindex="0" aria-controls="basic-datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">
+                                                                <th class="wd-5p sorting sorting_asc" tabindex="0"
+                                                                    aria-controls="basic-datatable" rowspan="1"
+                                                                    colspan="1" aria-sort="ascending"
+                                                                    aria-label="Name: activate to sort column descending">
                                                                     No.
                                                                 </th>
-                                                                <th class="wd-65p sorting sorting_asc" tabindex="0" aria-controls="basic-datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">
+                                                                <th class="wd-65p sorting sorting_asc" tabindex="0"
+                                                                    aria-controls="basic-datatable" rowspan="1"
+                                                                    colspan="1" aria-sort="ascending"
+                                                                    aria-label="Name: activate to sort column descending">
                                                                     Role
                                                                 </th>
-                                                                <th class="wd-30p sorting sorting_asc" tabindex="0" aria-controls="basic-datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">
+                                                                <th class="wd-30p sorting sorting_asc" tabindex="0"
+                                                                    aria-controls="basic-datatable" rowspan="1"
+                                                                    colspan="1" aria-sort="ascending"
+                                                                    aria-label="Name: activate to sort column descending">
                                                                     Aksi
                                                                 </th>
                                                             </tr>
@@ -84,31 +98,46 @@
                                                         <tbody>
                                                             <?php $num = 1; ?>
                                                             @foreach ($role as $role)
-                                                            <tr>
-                                                                <td class="text-center">{{ $num }}</a></td>
-                                                                <td>{{ $role->name }}</a></td>
+                                                                <tr>
+                                                                    <td class="text-center">{{ $num }}</a></td>
+                                                                    <td>{{ $role->name }}</a></td>
 
-                                                                <td class="text-center">
-                                                                    <div class="row justify-content-center">
-                                                                        @can('role_detail')
-                                                                        <a href="{{ route('roles.show', ['role' => base64_encode($role->id)]) }}" class="btn btn-sm btn-primary" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Detail">
-                                                                            <i class="fe fe-list"></i>
-                                                                        </a>&nbsp;&nbsp;
-                                                                        @endcan
-                                                                        @can('role_update')
-                                                                        <a href="{{ route('roles.edit', ['role' => base64_encode($role->id)]) }}" class="btn btn-sm btn-info" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Edit">
-                                                                            <i class="fe fe-edit"></i>
-                                                                        </a>&nbsp;&nbsp;
-                                                                        @endcan
-                                                                        @can('role_delete')
-                                                                        <a href="{{ route('roles.destroy', ['role' => base64_encode($role->id)]) }}" class="btn btn-sm btn-danger" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Delete" onclick="return confirm('Apakah anda yakin ingin hapus ?')">
-                                                                            <i class="fe fe-trash-2"></i>
-                                                                        </a>
-                                                                        @endcan
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <?php $num += 1; ?>
+                                                                    <td class="text-center">
+                                                                        <div class="row justify-content-center">
+                                                                            @can('role_detail')
+                                                                                <a href="{{ route('roles.show', ['role' => base64_encode($role->id)]) }}"
+                                                                                    class="btn btn-sm btn-primary"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-toggle="tooltip" title="Detail">
+                                                                                    <i class="fe fe-list"></i>
+                                                                                </a>&nbsp;&nbsp;
+                                                                            @endcan
+                                                                            @can('role_update')
+                                                                                <a href="{{ route('roles.edit', ['role' => base64_encode($role->id)]) }}"
+                                                                                    class="btn btn-sm btn-info"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-toggle="tooltip" title="Edit">
+                                                                                    <i class="fe fe-edit"></i>
+                                                                                </a>&nbsp;&nbsp;
+                                                                            @endcan
+                                                                            @can('role_delete')
+                                                                                <form
+                                                                                    action="{{ route('roles.destroy', base64_encode($role->id)) }}"
+                                                                                    method="POST">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-danger "
+                                                                                        onclick="return confirm('Yakin hapus?')">
+                                                                                        Delete
+                                                                                    </button>
+                                                                                </form>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php $num += 1; ?>
                                                             @endforeach
                                                         <tbody>
                                                     </table>

@@ -63,62 +63,37 @@ class UserController extends Controller
 
     public function processAdd(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                "name" => "required|string|max:30",
-                "role" => "required",
-                "email" => "required|email|unique:users,email",
-                "password" => "required|min:6|confirmed"
-            ],
-        );
-        $role = DB::table('roles')->where('id', $request->role[0])->first();
+        // ambil role (tanpa array)
+        $role = DB::table('roles')->where('id', $request->role)->first();
         $assignrole = $role->name;
-        $input = $request->all();
-        $rol = $input['role'];
-        DB::beginTransaction();
-        try {
-            $inserting = new User;
-            $inserting->name = $request->name;
-            $inserting->email = $request->email;
-            $inserting->role = $request->role[0];
-            $inserting->multirole = implode(',', $rol);
-            $inserting->email_verified_at = now();
-            $inserting->password = Hash::make($request->password);
-            $inserting->remember_token = Str::random(10);
-            $inserting->created_at = $request->created_at;
-            $inserting->updated_at = $request->updated_at;
 
-            $inserting->save();
-            $inserting->assignRole($assignrole);
+        // insert user
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+        $user->multirole = $request->role; // kalau cuma 1
+        $user->email_verified_at = now();
+        $user->is_aktif = 1;
+        $user->password = Hash::make($request->password);
+        $user->remember_token = Str::random(10);
+        $user->created_at = $request->created_at;
+        $user->updated_at = $request->updated_at;
 
-            //allert
-            $insertRole = new RoleAssignment();
-            if ($inserting) {
-                $userAs = new User();
-                $idUser = $userAs->select('id')->where('name', $request->name)->first();
-                $data = [];
-                for ($y = 0; $y < (count($request->role)); $y++) {
-                    $rolename = DB::table('roles')->where('id', $request->role[$y][0])->first();
-                    $data[$y]['id_user'] = $idUser['id'];
-                    $data[$y]['id_role'] = ($request->role[$y][0]);
-                }
-                RoleAssignment::insert($data); // Eloquent approach
-                return redirect('/user')->with("success", "Data berhasil ditambahkan");
-            } else {
-                return redirect()->back()->withInput()->withErrors("Terjadi kesalahan");
-            }
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            // $request['role'] = Role::select('id', 'name')->find($request->role);
-            return redirect()
-                ->back()
-                ->withInput($request->all())
-                ->withErrors($validator);
-        } finally {
-            DB::commit();
-        }
-        // dd(implode(',', $rol));
+        $user->save();
+
+        // spatie role
+        $user->assignRole($assignrole);
+
+        // insert role_assignment
+        RoleAssignment::create([
+            'id_user' => $user->id,
+            'id_role' => $request->role
+        ]);
+
+        DB::commit();
+
+        return redirect('/user')->with("success", "Data berhasil ditambahkan");
     }
 
     public function show($id)
@@ -167,77 +142,52 @@ class UserController extends Controller
 
     public function processUpdate(Request $request, User $user)
     {
-        // bismillah
-        $validator = Validator::make(
-            $request->all(),
-            [
-                "role" => "required",
-            ],
-            [],
-            $this->attributes()
-        );
-        if ($validator->fails()) {
-            $request['role'][0] = Role::select('id', 'name')->find($request->role);
-            return redirect()
-                ->back()
-                ->withInput($request->all())
-                ->withErrors($validator);
-        }
-        // dd($request->all());
-
-        $role = DB::table('roles')->where('id', $request->role[0])->first();
-        $assignrole = $role->name;
         DB::beginTransaction();
-        // dd($assignrole);
 
         try {
+            // validasi
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email',
+                'role' => 'required|exists:roles,id',
+            ]);
+
+            // ambil role
+            $role = DB::table('roles')->where('id', $request->role)->first();
+            $assignrole = $role->name;
+
+            // update user
             $user->name = $request->name;
             $user->email = $request->email;
 
-            $input = $request->all();
-            $hobby = $input['role'];
-            // $input['hobby'] = implode(',', $hobby);
-
-            $user->multirole = implode(',', $hobby);
-            if (empty($request->password)) {
-            }
             if (!empty($request->password)) {
                 $user->password = Hash::make($request->password);
             }
-            $user->role = $request->role[0];
-            // $user->image   = $nama_file;
+
+            $user->role = $request->role;
+            $user->multirole = $request->role;
+
+            // Spatie role
             $user->syncRoles($assignrole);
+
             $user->save();
 
+            // ✅ SIMPAN KE role_assignment (SINGLE)
+            RoleAssignment::updateOrCreate(
+                ['id_user' => $user->id],
+                ['id_role' => $request->role],
+            );
 
-            if ($user) {
+            DB::commit();
 
-                $userAs = new User();
-                $idUser = $userAs->select('id')->where('name', $request->name)->first();
-
-                RoleAssignment::where('id_user', $user->id)->delete();
-
-                $data = [];
-                for ($y = 0; $y < (count($request->role)); $y++) {
-                    $rolename = DB::table('roles')->where('id', $request->role[$y][0])->first();
-                    $data[$y]['id_user'] = $idUser['id'];
-                    $data[$y]['id_role'] = $request->role[$y][0];
-                }
-                RoleAssignment::insert($data); // Eloquent approach
-                // return redirect('/user')->with("success", "Data berhasil diupdate");
-                return redirect()->back();
-            } else {
-                return redirect()->back()->withInput()->withErrors("Terjadi kesalahan");
-            }
+            return redirect('/user')->with('success', 'User berhasil diupdate');
         } catch (\Throwable $th) {
             DB::rollBack();
-            // $request['role'][0] = Role::select('id', 'name')->find($request->role[0]);
+
             return redirect()
                 ->back()
-                ->withInput($request->all())
-                ->withErrors($validator);
-        } finally {
-            DB::commit();
+                ->withInput()
+                ->withErrors('Terjadi kesalahan: ' . $th->getMessage());
         }
     }
 

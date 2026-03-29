@@ -70,8 +70,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin', 'auth', 'PreventB
 Route::group(['middleware' => 'auth'], function () {
     // DASHBOARD
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // CHANGE ROLE
-    Route::post('/pergantian', [ProfilController::class, 'ganti']);
 
     // ROLES
     Route::get('/getall', [RoleController::class, 'getIndex'])->name('getall');

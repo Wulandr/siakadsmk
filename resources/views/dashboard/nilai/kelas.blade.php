@@ -1,4 +1,5 @@
 {{-- header --}}
+
 @include('layouts.header')
 {{-- /header --}}
 
@@ -33,7 +34,8 @@
                 <div class="breadcrumb-header justify-content-between">
                     <div class="left-content">
                         <span class="main-content-title mg-b-0 mg-b-lg-1">
-                            NILAI Kelas {{ $kelas->nama_kelas }}
+                            NILAI
+                            <br />Kelas {{ $kelas->nama_kelas }}
                         </span>
                     </div>
                 </div>
@@ -65,34 +67,36 @@
                                         <div class="col-lg-6 col-xl-3 col-md-6 col-12">
                                             <a href="{{ url('/nilai/murid/' . $m->id) }}"
                                                 style="text-decoration: none;">
-                                                <div class="card bg-primary-gradient text-white shadow-sm hover-shadow">
-
+                                                <div class="card bg-primary-gradient text-white">
                                                     <div class="card-body">
                                                         <div class="row">
 
                                                             {{-- ICON --}}
-                                                            <div class="col-6">
-                                                                <div class="icon1 mt-2 text-center">
+                                                            <div
+                                                                class="col-6 d-flex align-items-center justify-content-center">
+                                                                <div class="icon1 text-center">
                                                                     <i class="fe fe-users tx-40"></i>
                                                                 </div>
                                                             </div>
 
-                                                            {{-- INFO --}}
-                                                            <div class="col-6">
-                                                                <div class="mt-0 text-center">
-                                                                    <h4 class="text-white mb-0">
+                                                            {{-- TEXT --}}
+                                                            <div class="col-6 d-flex align-items-center">
+                                                                <div class="text-center w-100">
+                                                                    <span class="text-white">Murid</span>
+
+                                                                    <h6 class="text-white mb-0 nama-murid">
                                                                         {{ $m->nama }}
-                                                                    </h4>
+                                                                    </h6>
+
                                                                 </div>
                                                             </div>
 
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </a>
+                                        </div>
                                     @endforeach
-
                                 </div>
 
                             </div>

@@ -17,6 +17,11 @@ class Murid extends Model
     {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id');
     }
+    public function get_wali_kelas()
+    {
+        return $this->belongsTo(Guru::class, 'wali_kelas', 'id')
+            ->where('jabatan', 'Wali Kelas');
+    }
     public function get_th_ajaran()
     {
         return $this->belongsTo(ThAjaran::class, 'id_th_ajaran', 'id');

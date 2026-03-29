@@ -54,29 +54,45 @@
                                 <form action="{{ url('/murid/edit/process/' . base64_encode($id)) }}" id="formData"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
+                                    <div class="form-group">
+                                        <label>Nama Murid</label>
+                                        <input class="form-control" type="text" name="nama"
+                                            value="{{ $murid->nama }}" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>NIS</label>
+                                        <input class="form-control" type="text" name="nis"
+                                            value="{{ $murid->nis }}" required>
+                                    </div>
 
                                     <!-- Nama Kelas -->
                                     <div class="form-group">
                                         <label>Nama Kelas</label>
-                                        <input class="form-control" type="text" name="nama_kelas"
-                                            value="{{ $kelas->nama_kelas }}" required>
-                                    </div>
-
-                                    <!-- Wali Kelas -->
-                                    <div class="form-group">
-                                        <label>Wali Kelas</label>
-                                        <select class="form-control" name="wali_kelas" required>
-                                            <option value="">-- Pilih Wali Kelas --</option>
-                                            @foreach ($walikelas as $w)
-                                                <option value="{{ $w->id }}"
-                                                    {{ $kelas->wali_kelas == $w->id ? 'selected' : '' }}>
-                                                    {{ $w->nama }}
+                                        <select class="form-control" name="id_kelas" required>
+                                            <option value="">-- Pilih Kelas --</option>
+                                            @foreach ($kelas as $k)
+                                                <option value="{{ $k->id }}"
+                                                    {{ $murid->id_kelas == $k->id ? 'selected' : '' }}>
+                                                    {{ $k->nama_kelas }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
 
-
+                                    <!-- Tahun Ajaran -->
+                                    <div class="form-group">
+                                        <label>Tahun Ajaran</label>
+                                        <select class="form-control" name="id_th_ajaran" required>
+                                            <option value="">-- Pilih Tahun Ajaran --</option>
+                                            @foreach ($thAjaran as $th)
+                                                <option value="{{ $th->id }}"
+                                                    {{ $murid->id_th_ajaran == $th->id ? 'selected' : '' }}>
+                                                    {{ $th->th_ajaran }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <?php date_default_timezone_set('Asia/Jakarta'); ?>
                                     <input name="created_at" id="created_at" type="hidden"
                                         value="<?= date('Y-m-d H:i:s') ?>">

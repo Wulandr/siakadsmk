@@ -104,7 +104,8 @@ class MuridController extends Controller
         $roleAssignment = RoleAssignment::all();
         $murid = Murid::findOrFail($id);
         $kelas = Kelas::all();
-        $tahunAjaran = ThAjaran::all();
+        $guru = Guru::all();
+        $thAjaran = ThAjaran::all();
 
         return view('dashboard.murid.edit', compact(
             'id',
@@ -114,7 +115,8 @@ class MuridController extends Controller
             'roleAssignment',
             'murid',
             'kelas',
-            'tahunAjaran'
+            'thAjaran',
+            'guru'
 
         ));
     }
